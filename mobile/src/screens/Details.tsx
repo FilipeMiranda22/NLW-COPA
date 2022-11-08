@@ -4,6 +4,7 @@ import { HStack, useToast, VStack } from "native-base"
 import { Header } from "../components/Header"
 import { useRoute } from "@react-navigation/native"
 import { Loading } from "../components/Loading";
+import { Guesses } from "../components/Guesses"
 import { PoolCardPros } from "../components/PoolCard";
 
 import { api } from "../services/api"
@@ -62,13 +63,15 @@ export function Details(){
     <VStack flex={1} bgColor="gray.900">
       <Header title={poolDetails.title} showBackButton showShareButton onShare={handleCodeShare}/>
       {
-        poolDetails._count?.participants < 0 ? 
-        <VStack px={5} flex={1}>
+        poolDetails._count?.participants > 0 ? 
+        <VStack flex={1} px={5}>
           <PoolHeader data={poolDetails}/>
           <HStack bgColor="gray.800" p={1} rounded="sm" mb={5}>
             <Option title="Seus palpites" isSelected={optionSelected === 'Seus palpites'} onPress={() => setOptionSelectec('Seus palpites')}/>
             <Option title="Ranking do grupo" isSelected={optionSelected === 'Ranking do grupo'} onPress={() => setOptionSelectec('Ranking do grupo')}/>
           </HStack>
+
+          <Guesses poolId={poolDetails.id} code={poolDetails.code}/>
         </VStack>
         : <EmptyMyPoolList code={poolDetails.code}/>
       }

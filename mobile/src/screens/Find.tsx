@@ -54,7 +54,7 @@ export function Find(){
           });
         }
        
-        toast.show({
+        return toast.show({
           title: 'Não foi possível encontrar o bolão.',
           placement: 'top',
           bgColor: 'red.500',
